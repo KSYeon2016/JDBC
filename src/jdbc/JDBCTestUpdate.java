@@ -1,9 +1,10 @@
+package jdbc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBCTestInsert {
+public class JDBCTestUpdate {
 
 	public static void main(String[] args) {
 		Connection conn = null;
@@ -21,7 +22,7 @@ public class JDBCTestInsert {
 			stmt = conn.createStatement();
 			
 			// 4. SQL문 실행
-			String sql = "insert into author values(6, '맹자', null)";
+			String sql = "Update author set name = 'ksy' where no = 5";
 			int count = stmt.executeUpdate(sql);
 			
 			System.out.println(count + "개의 row가 입력되었습니다.");

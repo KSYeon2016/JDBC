@@ -41,6 +41,6 @@ public class BookVo {
 
 	@Override
 	public String toString() {
-		return "BookVo [no=" + no + ", title=" + title + ", rate=" + rate + ", authroNo=" + authorNo + "]";
+		return "BookVo [no=" + no + ", title=" + title + ", rate=" + rate + ", authorNo=" + authorNo + "]";
 	}
 }

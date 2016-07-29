@@ -1,38 +1,15 @@
-package kr.ac.sungkyul.bookmaill.app;
+package kr.ac.sungkyul.bookmaill.dao.test;
 
 import java.util.List;
 
-import kr.ac.sungkyul.bookmaill.dao.AuthorDao;
 import kr.ac.sungkyul.bookmaill.dao.BookDao;
-import kr.ac.sungkyul.bookmall.vo.AuthorVo;
 import kr.ac.sungkyul.bookmall.vo.BookVo;
 
-public class BookMall {
+public class BookDaoTest {
 
 	public static void main(String[] args) {
-		//testAuthorDaoInsert();
-		testAuthorDaoGetList();
-		
 		//testBookDaoInsert();
 		testBookDaoGetList();
-	}
-
-	public static void testAuthorDaoGetList(){
-		AuthorDao dao = new AuthorDao();
-		List<AuthorVo> list = dao.getList();
-		
-		for(AuthorVo vo : list){
-			System.out.println(vo);
-		}
-	}
-	
-	public static void testAuthorDaoInsert(){
-		AuthorVo vo = new AuthorVo();
-		vo.setName("플라톤");
-		vo.setDescription("");
-		
-		AuthorDao dao = new AuthorDao();
-		dao.insert(vo);
 	}
 	
 	public static void testBookDaoGetList(){

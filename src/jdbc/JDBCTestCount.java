@@ -1,10 +1,11 @@
+package jdbc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBCTest {
+public class JDBCTestCount {
 
 	public static void main(String[] args) {
 		Connection conn = null;
@@ -23,20 +24,14 @@ public class JDBCTest {
 			stmt = conn.createStatement();
 			
 			// 4. SQL문 실행
-			String sql = "select employee_id, first_name, last_name, salary" +
-						 " 	 	 from employees";
+			String sql = "select count(*) from employees";
 			rs = stmt.executeQuery(sql);
 			
 			// 5. 결과 처리
-			while(rs.next()){
-				int employeeId = rs.getInt(1);
-				String firstName = rs.getString(2);
-				String lastName = rs.getString(3);
-				int salary = rs.getInt(4);
+			if(rs.next()){
+				int count = rs.getInt(1);
 				
-				System.out.println(
-						employeeId + ":" + firstName + ":" + lastName + ":" + salary
-				);
+				System.out.println("전체  " + count + "개의 row가 있습니다.");
 			}
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패 : " + e);
