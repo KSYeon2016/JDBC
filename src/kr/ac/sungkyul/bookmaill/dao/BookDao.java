@@ -12,6 +12,139 @@ import java.util.List;
 import kr.ac.sungkyul.bookmall.vo.BookVo;
 
 public class BookDao {
+	public int delete(){
+		/*
+		 * 전체 삭제
+		 */
+		Connection conn = null;
+		Statement stmt = null;
+		int count = 0;
+		
+		try{
+			// 1. 드라이버 로딩
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			// 2. Connection 얻어오기
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			conn = DriverManager.getConnection(url, "skudb", "skudb");
+			
+			// 3. SQL 준비
+			String sql = "delete from book";
+			stmt = conn.createStatement();
+			
+			// 4. SQL 실행
+			count = stmt.executeUpdate(sql);
+		} catch(ClassNotFoundException e){
+			System.out.println("드라이버를 찾을 수 없습니다 : " + e);
+		} catch(SQLException e){
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if(stmt != null){
+					stmt.close();
+				}
+				
+				if(conn != null){
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		return count;
+	}
+	
+	public int update(BookVo vo){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int count = 0;
+		
+		try{
+			// 1. 드라이버 로딩
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			// 2. Connection 얻어오기
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			conn = DriverManager.getConnection(url, "skudb", "skudb");
+			
+			// 3. SQL 준비
+			String sql = "update book set title = ?, rate = ?, author_no = ? "
+					+ "		where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			// 4. 바인딩
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setInt(2, vo.getRate());
+			pstmt.setLong(3, vo.getAuthorNo());
+			pstmt.setLong(4, vo.getNo());
+			
+			// 5. SQL 실행
+			count = pstmt.executeUpdate();
+		} catch(ClassNotFoundException e){
+			System.out.println("드라이버를 찾을 수 없습니다 : " + e);
+		} catch(SQLException e){
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if(pstmt != null){
+					pstmt.close();
+				}
+				
+				if(conn != null){
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		return count;
+	}
+	
+	public int delete(Long no){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int count = 0;
+		
+		try{
+			// 1. 드라이버 로딩
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			// 2. Connection 얻어오기
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			conn = DriverManager.getConnection(url, "skudb", "skudb");
+			
+			// 3. SQL 준비
+			String sql = "delete from book where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			// 4. 바인딩
+			pstmt.setLong(1, no);
+			
+			// 5. SQL 실행
+			count = pstmt.executeUpdate();
+		} catch(ClassNotFoundException e){
+			System.out.println("드라이버를 찾을 수 없습니다 : " + e);
+		} catch(SQLException e){
+			System.out.println("error : " + e);
+		} finally {
+			try {
+				if(pstmt != null){
+					pstmt.close();
+				}
+				
+				if(conn != null){
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		return count;
+	}
+	
 	public int insert(BookVo vo){
 		int count = 0;
 		Connection conn = null;

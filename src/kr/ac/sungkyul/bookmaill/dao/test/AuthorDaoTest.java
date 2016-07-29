@@ -9,7 +9,33 @@ public class AuthorDaoTest {
 
 	public static void main(String[] args) {
 		//testAuthorDaoInsert();
+		//testAuthorDaoDelete();
+		//testAuthorDaoUpdate();
+		//testAuthorDaoDeleteAll();
 		testAuthorDaoGetList();
+	}
+	
+	public static void testAuthorDaoDeleteAll(){
+		AuthorDao dao = new AuthorDao();
+		dao.delete();
+		System.out.println("전체삭제");
+	}
+	
+	public static void testAuthorDaoUpdate(){
+		AuthorDao dao = new AuthorDao();
+		
+		AuthorVo vo = new AuthorVo();
+		vo.setNo(7L);
+		vo.setName("플라톤2");
+		vo.setDescription("그리스 철학자");
+		
+		dao.update(vo);
+	}
+	
+	public static void testAuthorDaoDelete(){
+		AuthorDao dao = new AuthorDao();
+		int count = dao.delete(6L);
+		System.out.println("삭제된 row 수 : " + count);
 	}
 	
 	public static void testAuthorDaoGetList(){
@@ -23,8 +49,8 @@ public class AuthorDaoTest {
 	
 	public static void testAuthorDaoInsert(){
 		AuthorVo vo = new AuthorVo();
-		vo.setName("플라톤");
-		vo.setDescription("");
+		vo.setName("박경리");
+		vo.setDescription("토지 저자");
 		
 		AuthorDao dao = new AuthorDao();
 		dao.insert(vo);
