@@ -5,6 +5,7 @@ public class BookVo {
 	private String title;
 	private Integer rate;
 	private Long authorNo;
+	private Integer status;
 	// private AuthorVo author; 쓰지마러
 	
 	public Long getNo() {
@@ -31,6 +32,14 @@ public class BookVo {
 		this.rate = rate;
 	}
 	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public Long getAuthorNo() {
 		return authorNo;
 	}
@@ -41,6 +50,7 @@ public class BookVo {
 
 	@Override
 	public String toString() {
-		return "BookVo [no=" + no + ", title=" + title + ", rate=" + rate + ", authorNo=" + authorNo + "]";
+		return "BookVo [no=" + no + ", title=" + title + ", rate=" + rate + ", authorNo=" + authorNo + ", status="
+				+ status + "]";
 	}
 }

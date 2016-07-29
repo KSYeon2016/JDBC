@@ -12,6 +12,11 @@ import java.util.List;
 import kr.ac.sungkyul.bookmall.vo.BookVo;
 
 public class BookDao {
+	public int updateStatus(Long no, Integer status){
+		/* 코드 작성 */
+		return 0;
+	}
+	
 	public int delete(){
 		/*
 		 * 전체 삭제
@@ -159,13 +164,14 @@ public class BookDao {
 			conn = DriverManager.getConnection(url, "skudb", "skudb");
 			
 			// 3. statement 준비
-			String sql = "insert into book values(seq_book.nextval, ?, ?, ?)";
+			String sql = "insert into book values(seq_book.nextval, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setInt(2, vo.getRate());
-			pstmt.setLong(3, vo.getAuthorNo());
+			pstmt.setInt(3, vo.getStatus());
+			pstmt.setLong(4, vo.getAuthorNo());
 			
 			// 5. query 실행
 			count = pstmt.executeUpdate();
@@ -210,7 +216,7 @@ public class BookDao {
 			stmt = conn.createStatement();
 			
 			// 4. SQL문 실행
-			String sql = "select no, title, rate, author_no from book";
+			String sql = "select no, title, rate, status, author_no from book";
 			rs = stmt.executeQuery(sql);
 			
 			// 5. 결과 처리
@@ -218,12 +224,14 @@ public class BookDao {
 				Long no = rs.getLong(1);
 				String title = rs.getString(2);
 				Integer rate = rs.getInt(3);
-				Long authorNo = rs.getLong(4);
+				Integer status = rs.getInt(4);
+				Long authorNo = rs.getLong(5);
 				
 				BookVo vo = new BookVo();
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setRate(rate);
+				vo.setStatus(status);
 				vo.setAuthorNo(authorNo);
 				
 				list.add(vo);

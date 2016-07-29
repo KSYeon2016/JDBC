@@ -49,10 +49,35 @@ public class AuthorDaoTest {
 	
 	public static void testAuthorDaoInsert(){
 		AuthorVo vo = new AuthorVo();
-		vo.setName("박경리");
-		vo.setDescription("토지 저자");
+		vo.setName("스테파니 메이어");
+		vo.setDescription("");
 		
 		AuthorDao dao = new AuthorDao();
+		dao.insert(vo);
+		
+		vo = new AuthorVo();
+		vo.setName("조정래");
+		vo.setDescription("");
+		dao.insert(vo);
+		
+		vo = new AuthorVo();
+		vo.setName("김동인");
+		vo.setDescription("");
+		dao.insert(vo);
+		
+		vo = new AuthorVo();
+		vo.setName("김난도");
+		vo.setDescription("");
+		dao.insert(vo);
+		
+		vo = new AuthorVo();
+		vo.setName("천상병");
+		vo.setDescription("");
+		dao.insert(vo);
+		
+		vo = new AuthorVo();
+		vo.setName("원수연");
+		vo.setDescription("");
 		dao.insert(vo);
 	}
 	
