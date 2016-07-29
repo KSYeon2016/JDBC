@@ -20,11 +20,16 @@ public class HRApp {
 		int minSalary = scanner.nextInt();
 		int maxSalary = scanner.nextInt();
 		
-		System.out.println(minSalary + ":" + maxSalary);
-		
 		/* 코드 작성 */
-		//dao.getList(minSalary, maxSalary);
+		EmployeeDao dao = new EmployeeDao();
+		List<EmployeeVo> list = dao.getList(minSalary, maxSalary);
+		
 		System.out.println("====================");
+		for(EmployeeVo vo : list){
+			System.out.println(
+					vo.getFirstName() + " " + vo.getLastName()
+					+ "\t" + vo.getSalary());
+		}
 		
 		scanner.close();
 	}
