@@ -25,9 +25,9 @@ public class AuthorDaoTest {
 		AuthorDao dao = new AuthorDao();
 		
 		AuthorVo vo = new AuthorVo();
-		vo.setNo(7L);
-		vo.setName("플라톤2");
-		vo.setDescription("그리스 철학자");
+		vo.setNo(6L);
+		vo.setName("원수연2");
+		vo.setDescription("가나다");
 		
 		dao.update(vo);
 	}
@@ -51,7 +51,6 @@ public class AuthorDaoTest {
 		AuthorVo vo = new AuthorVo();
 		vo.setName("스테파니 메이어");
 		vo.setDescription("");
-		
 		AuthorDao dao = new AuthorDao();
 		dao.insert(vo);
 		

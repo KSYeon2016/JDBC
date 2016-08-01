@@ -9,54 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.ac.sungkyul.bookmall.vo.BookVo;
+import kr.ac.sungkyul.bookmall.vo.CategoryVo;
 
-public class BookDao {
-//	public int updateStatus(Long no, Integer status){
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		int count = 0;
-//		
-//		try {
-//			// 1. 드라이버 로딩
-//			Class.forName("oracle.jdbc.driver.OracleDriver");
-//
-//			// 2. 연결 얻어오기
-//			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-//			conn = DriverManager.getConnection(url, "skudb", "skudb");
-//			
-//			// 3. SQL 준비
-//			String sql = "update book set status = ? where no = ?";
-//			pstmt = conn.prepareStatement(sql);
-//						
-//			// 4. 바인딩
-//			pstmt.setInt(1, status);
-//			pstmt.setLong(2, no);
-//						
-//			// 5. SQL 실행
-//			count = pstmt.executeUpdate();
-//		} catch (ClassNotFoundException e) {
-//			System.out.println("드라이버 로딩 실패 : " + e);
-//		} catch (SQLException e) {
-//			System.out.println("error:" + e);
-//		} finally {
-//			try {
-//				// 6. 자원 정리
-//				if(pstmt != null){
-//					pstmt.close();
-//				}
-//				
-//				if(conn != null){
-//					conn.close();
-//				}
-//			} catch (SQLException e) {
-//				System.out.println("error:" + e);
-//			}
-//		}
-//		
-//		return count;
-//	}
-	
+public class CategoryDao {
 	public int delete(){
 		/*
 		 * 전체 삭제
@@ -74,7 +29,7 @@ public class BookDao {
 			conn = DriverManager.getConnection(url, "skudb", "skudb");
 			
 			// 3. SQL 준비
-			String sql = "delete from book";
+			String sql = "delete from category";
 			stmt = conn.createStatement();
 			
 			// 4. SQL 실행
@@ -100,11 +55,11 @@ public class BookDao {
 		return count;
 	}
 	
-	public int update(BookVo vo){
+	public int update(CategoryVo vo){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
-		
+	
 		try{
 			// 1. 드라이버 로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -114,17 +69,12 @@ public class BookDao {
 			conn = DriverManager.getConnection(url, "skudb", "skudb");
 			
 			// 3. SQL 준비
-			String sql = "update book "
-					+ "		set title = ?, cost = ?, author_no = ?, category_no = ? "
-					+ "		where no = ?";
+			String sql = "update category set name = ? where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setInt(2, vo.getCost());
-			pstmt.setLong(3, vo.getAuthorNo());
-			pstmt.setLong(4, vo.getCategoryNo());
-			pstmt.setLong(5, vo.getNo());
+			pstmt.setString(1, vo.getName());
+			pstmt.setLong(2, vo.getNo());
 			
 			// 5. SQL 실행
 			count = pstmt.executeUpdate();
@@ -145,9 +95,9 @@ public class BookDao {
 				e.printStackTrace();
 			} 
 		}
-		
-		return count;
-	}
+	
+	return count;
+}
 	
 	public int delete(Long no){
 		Connection conn = null;
@@ -163,7 +113,7 @@ public class BookDao {
 			conn = DriverManager.getConnection(url, "skudb", "skudb");
 			
 			// 3. SQL 준비
-			String sql = "delete from book where no = ?";
+			String sql = "delete from category where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩
@@ -192,7 +142,7 @@ public class BookDao {
 		return count;
 	}
 	
-	public int insert(BookVo vo){
+	public int insert(CategoryVo vo){
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -206,14 +156,11 @@ public class BookDao {
 			conn = DriverManager.getConnection(url, "skudb", "skudb");
 			
 			// 3. statement 준비
-			String sql = "insert into book values(seq_book.nextval, ?, ?, ?, ?)";
+			String sql = "insert into category values(seq_category.nextval, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩
-			pstmt.setString(1, vo.getTitle());
-			pstmt.setInt(2, vo.getCost());
-			pstmt.setLong(3, vo.getAuthorNo());
-			pstmt.setLong(4, vo.getCategoryNo());
+			pstmt.setString(1, vo.getName());
 			
 			// 5. query 실행
 			count = pstmt.executeUpdate();
@@ -239,8 +186,8 @@ public class BookDao {
 		return count;
 	}
 	
-	public List<BookVo> getList(){
-		List<BookVo> list = new ArrayList<BookVo>();
+	public List<CategoryVo> getList(){
+		List<CategoryVo> list = new ArrayList<CategoryVo>();
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -258,25 +205,17 @@ public class BookDao {
 			stmt = conn.createStatement();
 			
 			// 4. SQL문 실행
-			String sql = "select b.no, b.TITLE, b.COST, a.NAME, c.NAME "
-					+ "		from BOOK b, AUTHOR a, CATEGORY c "
-					+ "		where b.AUTHOR_NO = a.NO and b.CATEGORY_NO = c.NO";
+			String sql = "select no, name from CATEGORY";
 			rs = stmt.executeQuery(sql);
 			
 			// 5. 결과 처리
 			while(rs.next()){
 				Integer no = rs.getInt(1);
-				String title = rs.getString(2);
-				Integer cost = rs.getInt(3);
-				String authorName = rs.getString(4);
-				String categoryName = rs.getString(5);
+				String name = rs.getString(2);
 				
-				BookVo vo = new BookVo();
+				CategoryVo vo = new CategoryVo();
 				vo.setNo((long)no);
-				vo.setTitle(title);
-				vo.setCost(cost);
-				vo.setAuthorName(authorName);
-				vo.setCategoryName(categoryName);
+				vo.setName(name);
 				
 				list.add(vo);
 			}
